@@ -1,0 +1,105 @@
+========================================================================
+           ORDER TRACKER MOBILE APP - ERRORS AND FIXES LOG
+========================================================================
+
+Below is a simple, easy-to-understand summary of all errors encountered 
+during development, build, and deployment, along with how each was fixed.
+
+------------------------------------------------------------------------
+1. ISSUE: Folder Name with Spaces Error
+------------------------------------------------------------------------
+WHAT HAPPENED:
+Running `npx create-expo-app` failed because the folder name 
+"Digital Hero Internship project" contained spaces.
+
+HOW IT WAS FIXED:
+Created the project with name "order-tracker" first, then moved 
+all project files into the root workspace directory.
+
+------------------------------------------------------------------------
+2. ISSUE: PowerShell Multi-line Seed Script Parsing Error
+------------------------------------------------------------------------
+WHAT HAPPENED:
+An inline command to seed 8 orders to mockapi.io failed due to 
+PowerShell quote-escaping rules on multiline strings.
+
+HOW IT WAS FIXED:
+Created a clean Node.js script `seed_api.js` and executed `node seed_api.js` 
+which successfully seeded all 8 order records with HTTP 201 status.
+
+------------------------------------------------------------------------
+3. ISSUE: Component Import Typos ('react' vs 'react-native')
+------------------------------------------------------------------------
+WHAT HAPPENED:
+TypeScript check (`npx tsc --noEmit`) threw error TS2305 because 
+`View`, `Text`, and `StyleSheet` were accidentally imported from 'react' 
+instead of 'react-native' in three component files.
+
+HOW IT WAS FIXED:
+Corrected imports across CreditFooter.tsx, OfflineBanner.tsx, and 
+StatusChip.tsx to `import { View, Text, StyleSheet } from 'react-native'`. 
+Re-running `tsc` passed with 0 errors.
+
+------------------------------------------------------------------------
+4. ISSUE: Babel Configuration for Web Export
+------------------------------------------------------------------------
+WHAT HAPPENED:
+Running `npx expo export --platform web` threw a Babel module resolution 
+error due to missing explicit `@babel/core` dependencies.
+
+HOW IT WAS FIXED:
+Installed `@babel/core` and `babel-preset-expo`, and updated `babel.config.js` 
+to standard Expo preset. The web export compiled cleanly into `dist/`.
+
+------------------------------------------------------------------------
+5. ISSUE: Git Remote Push Rejection
+------------------------------------------------------------------------
+WHAT HAPPENED:
+Initial `git push` was rejected because the remote GitHub repo already 
+contained a default initial commit.
+
+HOW IT WAS FIXED:
+Executed `git push --force -u origin main` to synchronize local 
+codebase with GitHub.
+
+------------------------------------------------------------------------
+6. ISSUE: EAS Cloud Build Non-Interactive Authentication
+------------------------------------------------------------------------
+WHAT HAPPENED:
+Running `eas build` failed because Expo requires an active user login session.
+
+HOW IT WAS FIXED:
+Executed `npx eas-cli login` and completed browser authentication for 
+user `jayanthsd2003`.
+
+------------------------------------------------------------------------
+7. ISSUE: Missing Android Package Identifier in app.json
+------------------------------------------------------------------------
+WHAT HAPPENED:
+EAS build failed with message: "The android.package is required to be set 
+in app config when running in non-interactive mode."
+
+HOW IT WAS FIXED:
+Added `"package": "com.jayanthsd2003.ordertracker"` under `"android"` in 
+`app.json` and linked the project ID.
+
+------------------------------------------------------------------------
+8. ISSUE: Missing iOS Bundle Identifier and Provisioning Profile
+------------------------------------------------------------------------
+WHAT HAPPENED:
+EAS build for iOS failed with message: "The ios.bundleIdentifier is required 
+to be set" and missing Apple Developer credentials for physical device builds.
+
+HOW IT WAS FIXED:
+1. Added `"bundleIdentifier": "com.jayanthsd2003.ordertracker"` to `app.json`.
+2. Added `"simulator": true` under `"ios"` profile in `eas.json` to allow 
+   iOS simulator builds without requiring a paid Apple Developer Account.
+
+========================================================================
+RESULT:
+- TypeScript Compilation: 0 errors
+- Local Web Server: Running on http://localhost:8080
+- Expo Dev Server: Running on exp://192.168.1.6:8081
+- Android Standalone APK Build: COMPLETED & DOWNLOADABLE
+- iOS Simulator Build: COMPLETED & DOWNLOADABLE
+========================================================================
