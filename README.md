@@ -55,6 +55,10 @@ A 2-Screen Mobile Application built with **React Native (Expo)**, **TypeScript**
 ├── App.tsx                           # Root navigation container & Network provider
 ├── app.json                          # Expo configuration
 ├── seed_api.js                       # Script used to seed Mock API
+├── ERRORS_AND_FIXES.txt              # Complete errors and fixes log
+├── Deliverables_Task_A/              # Task A APK & screenshots
+├── Deliverables_Task_B/              # Task B APK & demo video
+├── Screenshots/                      # App UI, offline, and error screenshots
 ├── src/
 │   ├── types/order.ts                # TypeScript interfaces
 │   ├── theme/colors.ts               # Design tokens & color palette
